@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import firebase from 'firebase';
 import db from '../config';
@@ -39,13 +39,27 @@ export default class AcceptScreen extends React.Component{
                  <Text>View</Text>
              </TouchableOpacity>
          }
+         bottomDivider
          />
      )
     }
   render(){
       return(
-          <View>
-              
+          <View style ={{flex:1}}>
+              {
+                  this.state.requestList.length===0
+                  ?(
+                      <View>
+                          <Text>No Requests</Text>
+                      </View>
+                  )
+                  :(
+                      <FlatList
+                      keyExtractor={this.keyExtractor}
+                      data={this.requestList}
+                      renderItem={this.renderItem}/>
+                  )
+              }
           </View>
       )
   }
